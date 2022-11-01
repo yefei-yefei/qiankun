@@ -1,0 +1,34 @@
+{
+  "data": {  接口名
+    "msg": "获取成功",
+    "status": 200,
+    "data": { 接口数据
+      "totalpage": 5,
+      "pagenum": 4,
+      "users": [
+        {
+          "id": 1,
+          "username": "用户",
+          "path": "user"
+        },
+        {
+          "id": 2,
+          "username": "富文本",
+          "path": "richtext"
+        },
+        {
+          "id": 3,
+          "username": "地图",
+          "path": "map"
+        }
+      ]
+    }
+  },
+  "meta": {
+    "msg": "获取成功",
+    "status": 200,
+    "data": {
+      "token": "yefei"
+    }
+  }
+}

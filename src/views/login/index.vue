@@ -1,40 +1,86 @@
 <template>
   <div class="login-container">
-    <el-form ref="ruleFormRef" :model="form" class="login-form">
+    <el-form ref="ruleFormRef" :rules="rules" :model="form" class="login-form">
       <div class="title-container">
         <h3 class="title">用户登录</h3>
       </div>
-      <el-form-item>
+      <el-form-item prop="name">
         <!-- <el-icon :size="20" class="svg-container">
           <Edit />
         </el-icon> -->
         <svg-icon icon="user" class="svg-container"></svg-icon>
         <el-input v-model="form.name" />
       </el-form-item>
-      <el-form-item>
+      <el-form-item prop="password">
         <!-- <el-icon :size="20" class="svg-container">
           <Edit />
         </el-icon> -->
         <svg-icon class="svg-container" icon="password"></svg-icon>
-        <el-input v-model="form.passward" />
+        <el-input v-model="form.password" :type="passwordType" />
+        <svg-icon
+          style="cursor: pointer"
+          :icon="passwordType === 'password' ? 'eye-open' : 'eye-open'"
+          @click="changeType"
+        ></svg-icon>
       </el-form-item>
-      <el-button type="primary">登录</el-button>
+      <el-button type="primary" @click="submitForm">登录</el-button>
     </el-form>
   </div>
 </template>
 <script setup>
 import { ref } from 'vue'
-// import { Edit } from '@element-plus/icons-vue'
+// import { login } from '@/api/login.js'
+import { ElMessage } from 'element-plus'
+import { useStore } from 'vuex'
+const store = useStore()
 const form = ref({
   name: '',
-  passward: ''
+  password: ''
 })
+const rules = ref({
+  name: [
+    {
+      required: true,
+      message: '请输入用户名',
+      trigger: 'blur'
+    }
+  ],
+  password: [
+    {
+      required: true,
+      message: '请输入登录密码',
+      trigger: 'blur'
+    }
+  ]
+})
+// vue3  干什么都要命名
+const ruleFormRef = ref(null)
+// 登录
+const submitForm = () => {
+  ruleFormRef.value.validate(async (valid) => {
+    if (valid) {
+      store.dispatch('app/login', form.value)
+    } else {
+      ElMessage.error('error submit!!')
+      return false
+    }
+  })
+}
+const passwordType = ref('password')
+// 小图标
+const changeType = () => {
+  if (passwordType.value === 'password') {
+    passwordType.value = 'text'
+  } else {
+    passwordType.value = 'password'
+  }
+}
 </script>
 <style lang="scss" scoped>
 $bg: #2d3a4b;
-$dark_gray: #889aa4;
+$dark_gray: #000;
 $light_gray: #eee;
-$cursor: #fff;
+$cursor: #000;
 
 .login-container {
   min-height: 100%;
@@ -52,21 +98,22 @@ $cursor: #fff;
 
     ::v-deep .el-form-item {
       border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(0, 0, 0, 0.1);
+      background: #fff;
       border-radius: 5px;
       color: #454545;
     }
     ::v-deep .el-input__wrapper {
       width: 100%;
-      background: rgb(43, 52, 67);
+      background: #fff;
       height: 47px;
       box-shadow: none;
     }
     ::v-deep .el-input {
       display: inline-block;
       height: 47px;
-      width: 92%;
+      width: 88%;
       border: none;
+
       input {
         background: transparent;
         border: 0px;

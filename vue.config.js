@@ -65,5 +65,31 @@ module.exports = {
         symbolId: 'icon-[name]'
       })
       .end()
+  },
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000/', //后台接口地址
+        // ws: true, //如果要代理 websockets，配置这个参数
+        // secure: false, //如果是https接口，需要配置这个参数
+        changeOrigin: true, //是否跨域
+        pathRewrite: {
+          //重写路径
+          '^/api': ''
+        }
+      }
+    }
+  },
+  css: {
+    loaderOptions: {
+      sass: {
+        // additionalData: 或 prependData:
+        // 8版本用prependData:
+        additionalData: `
+          @import "@/styles/variables.scss";  // scss文件地址
+          @import "@/styles/mixin.scss";     // scss文件地址
+        `
+      }
+    }
   }
 }

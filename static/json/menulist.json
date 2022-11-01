@@ -1,0 +1,44 @@
+{
+  "data": {
+    "msg": "获取成功",
+    "status": 200,
+    "data": {
+      "users": [
+        {
+          "id": "1",
+          "name": "基础信息",
+          "children": [
+            {
+              "id": 1,
+              "username": "用户",
+              "path": "user"
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "name": "组件",
+          "children": [
+            {
+              "id": 2,
+              "username": "富文本",
+              "path": "richtext"
+            },
+            {
+              "id": 3,
+              "username": "地图",
+              "path": "map"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "meta": {
+    "msg": "获取成功",
+    "status": 200,
+    "data": {
+      "token": "yefei"
+    }
+  }
+}
