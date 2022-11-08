@@ -20,7 +20,7 @@ service.interceptors.request.use(
         //
       }
     }
-    // 挂载token
+    // 挂载token token挂载到headers上
     config.headers.Authorization = localStorage.getItem('token')
     return config
   },
@@ -31,6 +31,7 @@ service.interceptors.request.use(
 )
 service.interceptors.response.use(
   (response) => {
+    // 接口返回信息
     const meta = response
     const { data } = meta
     if (meta.status === 200 || meta.status === 201) {
